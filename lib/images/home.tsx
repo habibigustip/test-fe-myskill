@@ -1,0 +1,1 @@
+export const MYSKILL_LOGO_IMAGE = "/myskill-logo.webp"
