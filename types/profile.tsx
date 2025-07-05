@@ -1,8 +1,11 @@
 export interface IProfile {
-  image_url: string;
+  id?: number;
+  bg_image_url?: object;
+  profile_image_url?: object;
   name: string;
   title: string;
   description: string;
+  portofolio?: IPortofolio[];
 }
 
 export interface IPortofolio {

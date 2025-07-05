@@ -12,20 +12,22 @@ import {
 import { IPortofolio } from "@/types/profile";
 import { useRouter } from "next/navigation";
 
-export default function PortofolioCard({ widthCard, portofolios }: { widthCard: string, portofolios: IPortofolio[] }) {
+export default function PortofolioCard({ widthCard, portofolios, isEdit = true }: { widthCard: string, portofolios: IPortofolio[], isEdit?: boolean }) {
     const router = useRouter()
 
     return (
       <Card className={`w-[${widthCard}] h-fit mb-4 gap-4`}>
         <CardHeader className="flex items-center justify-between">
           <CardTitle className="font-bold">Portofolio</CardTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.push("/portofolio/edit")}
-          >
-            <PencilIcon className="size-6"/>
-          </Button>
+          {isEdit &&
+            <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => router.push("/portofolio/edit")}
+            >
+                <PencilIcon className="size-6"/>
+            </Button>
+          }
         </CardHeader>
         <CardContent>
           <div className="divide-y">
