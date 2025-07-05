@@ -43,7 +43,7 @@ const ListItem = forwardRef<
 ListItem.displayName = "ListItem"
 
 export default function NavigationMenuShop() {
-  const { data: categories, isLoading , isError, error } = useQuery<Category[]>({
+  const { data: categories, isLoading , isError, error } = useQuery({
     queryKey: ['categories'],
     queryFn: fetchCategories
   })
