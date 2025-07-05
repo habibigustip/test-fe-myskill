@@ -10,13 +10,22 @@ import {
 } from "@/components/ui/card"
 
 import { IPortofolio } from "@/types/profile";
+import { useRouter } from "next/navigation";
 
 export default function PortofolioCard({ widthCard, portofolios }: { widthCard: string, portofolios: IPortofolio[] }) {
+    const router = useRouter()
+
     return (
       <Card className={`w-[${widthCard}] h-fit mb-4 gap-4`}>
         <CardHeader className="flex items-center justify-between">
           <CardTitle className="font-bold">Portofolio</CardTitle>
-          <Button variant="ghost" size="icon"><PencilIcon className="size-6"/></Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => router.push("/portofolio/edit")}
+          >
+            <PencilIcon className="size-6"/>
+          </Button>
         </CardHeader>
         <CardContent>
           <div className="divide-y">

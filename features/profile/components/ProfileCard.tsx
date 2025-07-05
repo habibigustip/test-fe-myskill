@@ -10,8 +10,11 @@ import {
 import { IProfile } from "@/types/profile";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation";
 
 export default function ProfileCard({ widthCard, profile }: { widthCard: string, profile: IProfile }) {
+    const router = useRouter()
+
     return (
       <Card className={`w-[${widthCard}] h-fit py-0 mt-8 mb-2`}>
         <CardContent className="px-0">
@@ -29,7 +32,13 @@ export default function ProfileCard({ widthCard, profile }: { widthCard: string,
               <AvatarFallback className="text-center">Avatar Image Feedback</AvatarFallback>
             </Avatar>
             <div className="absolute py-1 px-6 right-0 bottom-[-25%]">
-              <Button variant="ghost" size="icon"><PencilIcon className="size-6"/></Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => router.push("/profile/edit")}
+              >
+                <PencilIcon className="size-6"/>
+              </Button>
             </div>
           </div>
           <div className="py-4 px-6">
