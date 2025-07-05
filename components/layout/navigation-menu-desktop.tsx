@@ -12,54 +12,15 @@ import {
 import Link from "next/link"
 import { useQuery } from "@tanstack/react-query";
 import { fetchCategories } from "@/services/services-categroies";
-import { Category } from "@/types/category";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Url } from "next/dist/shared/lib/router/router";
 import { MENU_TITLE } from "@/lib/types/constants";
 import { MYSKILL_LOGO_IMAGE } from "@/lib/images/home";
- 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Lorem ipsum 1",
-    href: "/",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Lorem ipsum 2",
-    href: "/",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Lorem ipsum 3",
-    href: "/",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Lorem ipsum 4",
-    href: "/",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Lorem ipsum 5",
-    href: "/",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Lorem ipsum 6",
-    href: "/",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-]
 
 const ListItem = forwardRef<
   ComponentRef<"a">,
   ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+>(({ className, children, ...props }, ref) => {
   const href: Url = props.href as Url;
   return (
     <li>
