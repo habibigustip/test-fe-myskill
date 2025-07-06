@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import ProfileCard from "../components/ProfileCard";
 import ImageUploader from "@/components/shared/ImageUploader";
@@ -16,37 +16,21 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/db";
 import { ArrowLeftCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function EditProfile() {
   const router = useRouter()
   const profile = useLiveQuery(() => db.profile.get(1))
-  // const profile: IProfile = {
-  //   profile_image_url: "https://picsum.photos/id/64/4326/2884",
-  //   bg_image_url: "https://picsum.photos/seed/picsum/700/300",
-  //   name: "Habibi Gusti Pangestu",
-  //   title: "Frontend Engineer",
-  //   description: "Deskripsi, lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet"
-  // }
 
   const [uploadedBackgroundImage, setUploadedBackgroundImage] = useState();
   const [uploadedProfileImage, setUploadedProfileImage] = useState(null);
 
   const handleBackgroundImageChange = (file) => {
-    setUploadedBackgroundImage(file);
-    if (file) {
-      console.log('Image selected:', file.name, file.size);
-    } else {
-      console.log('Image removed');
-    }
+    setUploadedBackgroundImage(file)
   }
 
   const handleProfileImageChange = (file) => {
-    setUploadedProfileImage(file);
-    if (file) {
-      console.log('Image selected:', file.name, file.size);
-    } else {
-      console.log('Image removed');
-    }
+    setUploadedProfileImage(file)
   }
 
   const FormSchema = z.object({
@@ -64,19 +48,38 @@ export default function EditProfile() {
     },
   })
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const profile = await db.profile.get(1);
+      if (profile) {
+        formProfile.reset({
+          name: profile.name,
+          title: profile.title,
+          description: profile.description,
+        });
+      }
+    };
+
+    fetchProfile();
+  }, [formProfile]);
+
+  const watchedProfile = formProfile.watch();
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const isBgImageUrl = uploadedBackgroundImage ? { name: uploadedBackgroundImage?.name, blob: uploadedBackgroundImage } : undefined
+    const isProfileImageUrl = uploadedProfileImage ? { name: uploadedProfileImage?.name, blob: uploadedProfileImage } : undefined
     try {
-      const id = await db.profile.update(1, {
-        bg_image_url: { name: uploadedBackgroundImage?.name, blob: uploadedBackgroundImage },
-        profile_image_url: { name: uploadedProfileImage?.name, blob: uploadedProfileImage },
+      await db.profile.update(1, {
+        bg_image_url: isBgImageUrl,
+        profile_image_url: isProfileImageUrl,
         name: data.name,
         title: data.title,
         description: data.description,
       });
 
-      console.log(`Profile ${formProfile.getValues("name")} successfully added. Got id ${id}`);
+      toast("Profile successfully edited.")
     } catch (error) {
-      console.log(`Profile ${formProfile.getValues("name")} successfully added. Got error ${error}`);
+      toast(`Profile failed edited. Error ${error}`)
     }
   }
 
@@ -86,8 +89,8 @@ export default function EditProfile() {
 
   return (
     <>
-      <div className="grid grid-cols-3 p-4">
-        <div className="col-span-2 px-4 text-red">
+      <div className="grid row-span-full md:grid-cols-3 p-4">
+        <div className="col-span-full md:col-span-2 px-4 text-red">
           <div className="flex">
             <Button
               variant="ghost"
@@ -125,7 +128,6 @@ export default function EditProfile() {
                     Selected file: <strong>{uploadedProfileImage.name}</strong> ({(uploadedProfileImage.size / 1024 / 1024).toFixed(2)} MB)
                   </p>
                 )}
-                {/* {!isUploadedProfileImage && <p className="text-destructive text-sm">Profile Image required</p>} */}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3" className="last:border-b-1 rounded-lg border px-4 mb-2">
@@ -181,11 +183,13 @@ export default function EditProfile() {
             <Button className="text-right" onClick={formProfile.handleSubmit(onSubmit)}>Submit</Button>
           </div>
         </div>
-        <div className="px-4 border-l">
+        <div className="col-span-full md:col-span-1 mt-4 md:mt-0 px-4 md:border-l">
+          <div className="text-3xl font-bold mb-4">Preview</div>
           {
           profile && <ProfileCard
-              widthCard="655px"
               profile={profile}
+              watchedProfile={watchedProfile}
+              isEditProfile={false}
             />
           }
         </div>

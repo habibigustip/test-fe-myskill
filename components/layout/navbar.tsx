@@ -6,17 +6,29 @@ import Link from "next/link";
 import NavigationMenuDesktop from "./navigation-menu-desktop";
 import Image from "next/image";
 import { MYSKILL_LOGO_IMAGE } from "@/lib/images/home";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter()
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const toHomePage = () => {
+    router.push("/")
+  }
 
   return (
     <nav className="bg-white shadow-md px-6 py-4">
       <div className="flex justify-between items-center">
-        <Image src={MYSKILL_LOGO_IMAGE} alt="MySkill Logo" width={100} height={30}/>
+        <Image
+          src={MYSKILL_LOGO_IMAGE}
+          alt="MySkill Logo"
+          width={100}
+          height={30}
+          className="cursor-pointer"
+          onClick={() => toHomePage()}
+        />
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">

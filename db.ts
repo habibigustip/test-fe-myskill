@@ -10,7 +10,7 @@ const db = new Dexie('ProfileDatabase') as Dexie & {
 
 // Schema declaration:
 db.version(1).stores({
-  profile: '++id, bg_image_url, profile_image_url, name, title, decsription, portofolio' // primary key "id" (for the runtime!)
+  profile: '++id, bg_image_url, profile_image_url, name, title, decsription, portofolio'
 });
 
 export { db };
