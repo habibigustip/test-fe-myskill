@@ -8,9 +8,14 @@ This project is a Website portfolio page builder for FE test on MySkill.
 - React – Core frontend framework
 - Tailwind CSS – Utility-first styling for fast, responsive design
 - ShadCN UI – Pre-built, accessible UI components
-- React Query – Data fetching and caching
+- DexiteJs - library for IndexedDB
 - Zustand – For state management (if applicable)
 - TypeScript – Type safety
+
+Dalam referensi design yang diberikan ada beberapa yang saya rubah, seperti:
+- Halaman View Profile Page, saya memisahkan section Profile dan Portofolio, karena tidak terlalu berkaitan, Profile tentang data diri sedangkan Portofolio tentang pengalaman kerja.
+- Halaman Edit Profile dan Edit Portofolio, karena keduanya tidak saling berkaitan,
+  karena saya sebagai user pasti ada case hanya ingin mngubah data Profile saya seperti ganti background image, avatar image, nama ataupun posisi, begitu juga saat hanyan ingin mengubah portofolio, hanya data-data portofolios saja yang diubah
 
 ----------------------------------------------------------------------
 
