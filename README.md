@@ -1,6 +1,5 @@
 # test-fe-myskill
-
-🛍️ Website portfolio page builder with Next.js
+Website portfolio page builder with Next.js
 
 This project is a Website portfolio page builder for FE test on MySkill.
 

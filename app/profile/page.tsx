@@ -1,5 +1,5 @@
 import Profile from "@/features/profile";
  
-export default function LoginPage() {
+export default function ProfilePage() {
   return <Profile />
 }
