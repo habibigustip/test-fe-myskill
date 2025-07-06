@@ -13,10 +13,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 
 export default function ProfileCard({ profile, watchedProfile, isEditProfile = true }
-  :{ profile: IProfile, watchedProfile?: IProfile, isEditProfile?: boolean }) {
+  :{ profile?: IProfile, watchedProfile?: IProfile, isEditProfile?: boolean }) {
     const router = useRouter()
-    const imgPreviewBackground = profile.bg_image_url?.blob ? URL.createObjectURL(profile.bg_image_url.blob) : ""
-    const imgPreviewProfile = profile.profile_image_url?.blob ? URL.createObjectURL(profile.profile_image_url.blob) : ""
+    const imgPreviewBackground = profile?.bg_image_url?.blob ? URL.createObjectURL(profile.bg_image_url.blob) : ""
+    const imgPreviewProfile = profile?.profile_image_url?.blob ? URL.createObjectURL(profile.profile_image_url.blob) : ""
 
     return (
       <Card className={`min-w-full md:min-w-[655px] h-fit py-0`}>

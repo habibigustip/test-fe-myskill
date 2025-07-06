@@ -31,3 +31,20 @@ export function formatPrice(amount: number, currency = 'USD', locale = 'en-US') 
     minimumFractionDigits: 2,
   }).format(amount);
 }
+
+/**
+ * Format a Year-Month with format YYYY-MM
+ * @param input string - the data value (e.g., 2023-01)
+ */
+export function formatMonthYear(input: string): string {
+  const [yearStr, monthStr] = input.split("-");
+  const year = parseInt(yearStr, 10);
+  const month = parseInt(monthStr, 10);
+
+  if (!year || month < 1 || month > 12) {
+    return "-";
+  }
+
+  const date = new Date(year, month - 1);
+  return date.toLocaleString("en-US", { month: "long", year: "numeric" });
+}

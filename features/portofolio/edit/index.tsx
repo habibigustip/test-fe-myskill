@@ -55,6 +55,20 @@ export default function EditProfile() {
     loadData();
   }, [portofolio?.portofolio, append, replace]);
 
+  const onAppendPortofolio = () => {
+    if (fields.length < 10) {
+      append({
+        title: "",
+        company: "",
+        start_date: "",
+        end_date: "",
+        description: ""
+      })
+    } else {
+      toast("Maximum 10 portofolio allowed");
+    }
+  }
+
   const watchedPortofolios = form.watch("portofolios"); 
 
   async function onSubmit(values: FormValues) {
@@ -184,13 +198,7 @@ export default function EditProfile() {
                     <Button
                       type="button"
                       className="bg-teal-500"
-                      onClick={() => append({
-                        title: "",
-                        company: "",
-                        start_date: "",
-                        end_date: "",
-                        description: ""
-                      })}
+                      onClick={() => onAppendPortofolio()}
                     >
                       Add Portofolio
                     </Button>
